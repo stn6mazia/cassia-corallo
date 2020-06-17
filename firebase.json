@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "",
+    "public": "dist/cassia-corallo",
     "ignore": [
       "firebase.json",
       "**/.*",
