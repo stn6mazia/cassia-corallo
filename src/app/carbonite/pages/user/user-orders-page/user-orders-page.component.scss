@@ -1,0 +1,11 @@
+@import '../../../shared/styles/mixxins';
+#user-orders-page {
+    background-color: $default-black;
+    color: $default-white;
+}
+
+.order-card {
+    padding: 16px 18px 16px 18px;
+    border: 1px solid $default-white;
+    margin: 24px 0 24px 0;
+}

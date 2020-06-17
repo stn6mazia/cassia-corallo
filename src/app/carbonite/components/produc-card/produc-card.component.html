@@ -1,0 +1,131 @@
+<div *ngIf="admin">
+    <div *ngFor="let product of products">
+        <div class="row product-box" [ngClass]="{'red-border': !product.status}" *ngIf="category == product.category">
+            <div class="col">
+                <div class="row">
+                    <div class="col-4 left">
+                        <img class="card-img-demo" src="data:image/jpeg;base64,{{product.image}}" alt="">
+                    </div>
+                    <div class="col left">
+                        <div class="row">
+                            <div class="col-7 left">
+                                <span class="f-24" *ngIf="product.status">{{product.name}}</span>
+                                <span class="f-24" *ngIf="!product.status">{{product.name}} <span
+                                        class="unfocus-text f-14">(inatívo)</span></span>
+                            </div>
+                            <div class="col-5 right">
+                                <span class="f-24">{{product.price | currencyFormat}}</span>
+                            </div>
+                        </div>
+                        <div class="row pt-24 justify">
+                            <div class="col left">
+                                <span class="f-16">{{product.desription}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row pt-16">
+                    <div class="col">
+                        <button *ngIf="product.status" class="btn btn-default" (click)="updateStatus(product.key, false)">INATIVAR</button>
+                        <button *ngIf="!product.status" class="btn btn-green" (click)="updateStatus(product.key, true)">ATIVAR</button>
+                    </div>
+                </div>
+                <div class="row" *ngIf="colapsed || selectedEditId != product.key">
+                    <div class="col">
+                        <div class="plus-sect"><span class="f-16 under-line" (click)="selectedEditId = product.key; colapsed = false">Editar</span></div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="!colapsed && selectedEditId == product.key">
+                    <div class="col">
+                        <div class="row pt-32">
+                            <div class="col">
+                                <input type="file" (input)="saveImgBaseSixtyFour($event)">
+                            </div>
+                        </div>
+                        <div class="row pt-32">
+                            <div class="col">
+                                <input type="text" class="text" [(ngModel)]="product.name" placeholder="Nome do produto">
+                            </div>
+                        </div>
+                        <div class="row pt-32">
+                            <div class="col">
+                                <textarea class="text" rows="2" [(ngModel)]="product.desription" placeholder="Descrição do produto"></textarea>
+                            </div>
+                        </div>
+                        <div class="row pt-32">
+                            <div class="col">
+                                <input type="tel" class="text" [(ngModel)]="product.price" placeholder="Valor do produto">
+                            </div>
+                        </div>
+                        <div class="row pt-40">
+                            <div class="col">
+                                <button class="btn btn-default" (click)="updateProduct(product.key, product)">SALVAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="pb-56" *ngIf="!admin">
+    <div class="categories-row">
+        <div class="categories-col" *ngFor="let category of categoryList">
+            <span class="defaut-label" (click)="selectedCAtegoryMenu = category.name" [ngClass]="{'active-link': selectedCAtegoryMenu == category.name}">{{category.name}}</span>
+        </div>
+    </div>
+    <div *ngFor="let product of products">
+        <div class="row product-box" *ngIf="product.status && product.category == selectedCAtegoryMenu">
+            <div class="col">
+                <div class="row">
+                    <div class="col center">
+                        <img class="card-img-demo" src="data:image/jpeg;base64,{{product.image}}" alt="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-7 left">
+                        <span class="f-18">{{product.name}}</span>
+                    </div>
+                    <div class="col-5 right">
+                        <span class="f-18">{{product.price | currencyFormat}}</span>
+                    </div>
+                </div>
+                <div class="row pt-24 justify">
+                    <div class="col left">
+                        <span class="f-16">{{product.desription}}</span>
+                    </div>
+                </div>
+                <div class="row" *ngIf="!noted || selectedNotedId != product.key">
+                    <div class="col">
+                        <div class="plus-sect"><span class="f-16 under-line" (click)="selectedNotedId = product.key; noted = true">Observações</span></div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="noted && selectedNotedId == product.key">
+                    <div class="col">
+                        <div class="row pt-32">
+                            <div class="col">
+                                <textarea class="text" rows="2" [(ngModel)]="productNote" placeholder="Quer sem queijo? Bacon extra?"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span class="default-label under-line" (click)="goToProductDetail(product.name)">ADICIONAR COMPLEMENTOS</span>
+                    </div>
+                </div>
+                <div class="row pt-24">
+                    <div class="col">
+                        <button class="btn btn-default" (click)="addToCart(product)">ADICIONAR AO CARRINHO</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="loading">
+    <loading></loading>
+</div>

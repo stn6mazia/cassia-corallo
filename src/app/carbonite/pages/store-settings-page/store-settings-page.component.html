@@ -1,0 +1,211 @@
+<div id="store-page" class="wrapper">
+    <div class="container">
+        <div class="row right pb-24">
+            <div class="col right pr-16">
+                <div class="dropdown">
+                    <span class="f-24" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars"></i></span>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" [routerLink]="['/full-orders']" routerLinkActive="router-link-active">Lista de pedidos</a>
+                        <a class="dropdown-item" [routerLink]="['/products']">Produtos</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" (click)="logout()">Sair <i class="fas fa-power-off"></i></a>
+                    </div>
+                </div>
+            </div>aditStore
+        </div>
+    </div>
+    <div class="container">
+        <div class="row ">
+            <div class="col">
+                <div class="store-info-card" [ngClass]="{'unactive-store': !storeInfo.open}">
+                    <div class="align-items-center" *ngIf="aditStore">
+                        <div class="row">
+                            <div class="col">
+                                <label class="default-labal">Nome da Loja</label>
+                                <input type="text" class="text" [(ngModel)]="storeInfo.name">
+                            </div>
+                        </div>
+                        <div class="row pt-32">
+                            <div class="col">
+                                <span class="f-24">Informações de contato</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label class="default-labal">Email da Loja</label>
+                                <input type="text" class="text" [(ngModel)]="storeInfo.email">
+                            </div>
+                            <div class="col">
+                                <label class="default-labal">Telefone da Loja</label>
+                                <input type="text" class="text" mask="(00) 0 0000 0000" [(ngModel)]="storeInfo.phone">
+                            </div>
+                        </div>
+                        <div class="row pt-32">
+                            <div class="col">
+                                <span class="f-24">Informações de endereço</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label class="default-label">Endereço</label>
+                                <input type="text" class="text" [(ngModel)]="storeInfo.address">
+                            </div>
+                            <div class="col">
+                                <label class="default-label">Numero</label>
+                                <input type="text" class="text" [(ngModel)]="storeInfo.number">
+                            </div>
+                            <div class="col">
+                                <label class="default-label">Bairro</label>
+                                <input type="text" class="text" [(ngModel)]="storeInfo.neightborhood">
+                            </div>
+                        </div>
+                        <div class="row align-items-center pt-32">
+                            <div class="col center">
+                                <span class="f-16 under-line clickable" (click)="aditStore = false">Cancelar</span>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-default" (click)="saveStore()">SALVAR</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row align-items-center" *ngIf="!aditStore">
+                        <div class="col-8 left">
+                            <span class="f-32" *ngIf="storeInfo.open">{{storeInfo.name}} - Aberto </span>
+                            <span class="f-32" *ngIf="!storeInfo.open">{{storeInfo.name}} - Fechado </span>
+                        </div>
+                        <div class="col-2 center">
+                            <span class="f-32 under-line clickable" (click)="aditStore = true">Editar</span>
+                        </div>
+                        <div class="col-2 right">
+                            <button class="btn btn-default" *ngIf="storeInfo.open" (click)="openAndCloseStore()">FECHAR LOJA</button>
+                            <button class="btn btn-default" *ngIf="!storeInfo.open" (click)="openAndCloseStore()">ABRIR LOJA</button>
+                        </div>
+                    </div>
+                    <div class="row pt-32" *ngIf="!aditStore">
+                        <div class="col">
+                            <span class="f-24">Informações de contato</span>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="!aditStore">
+                        <div class="col">
+                            <label class="default-label">Email</label>
+                            <br>
+                            <span class="f-16">{{storeInfo.email}}</span>
+                        </div>
+                        <div class="col">
+                            <label class="default-label">Telefone</label>
+                            <br>
+                            <span class="f-16">{{storeInfo.phone | mask: '(00) 0 0000 0000'}}</span>
+                        </div>
+                    </div>
+                    <div class="row pt-32" *ngIf="!aditStore">
+                        <div class="col">
+                            <span class="f-24">Informações de endereço</span>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="!aditStore">
+                        <div class="col">
+                            <span class="f-16">{{storeInfo.address}} - {{storeInfo.number}},
+                                {{storeInfo.neightborhood}}</span>
+                        </div>
+                    </div>
+                    <div class="row pt-32" *ngIf="!aditStore">
+                        <div class="col">
+                            <span class="f-24">Informações de pagamento</span>
+                        </div>
+                    </div>
+                    <div class="row pt-16" *ngIf="!aditStore">
+                        <div class="col">
+                            <span class="f-18">Pagamento na entrega</span>
+                            <div class="row align-items-center">
+                                <div class="col center">
+                                    <span *ngIf="storeInfo.offlinePayment" class="f-18">Ativo</span>
+                                    <span *ngIf="!storeInfo.offlinePayment" class="f-18">Inativo</span>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-default" *ngIf="storeInfo.offlinePayment" (click)="updateOfflinePaymentStatus()">DESATIVAR</button>
+                                    <button class="btn btn-default" *ngIf="!storeInfo.offlinePayment" (click)="updateOfflinePaymentStatus()">ATIVAR</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <span class="f-18">Pagamento com mercado pago</span>
+                            <div class="row align-items-center">
+                                <div class="col center">
+                                    <span *ngIf="storeInfo.mpPayment" class="f-18">Ativo</span>
+                                    <span *ngIf="!storeInfo.mpPayment" class="f-18">Inativo</span>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-default" *ngIf="storeInfo.mpPayment" (click)="updateMpPaymentStatus()">DESATIVAR</button>
+                                    <button class="btn btn-default" *ngIf="!storeInfo.mpPayment" (click)="updateMpPaymentStatus()">ATIVAR</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="store-info-card mt-5">
+                    <div class="row align-items-end" *ngIf="!editDistrict">
+                        <div class="col-10">
+                            <label class="default-label">Busque um bairro</label>
+                            <input type="text" class="text" #districtSearchIput>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-default" (click)="searchDistrict(districtSearchIput.value)"><i
+                                    class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                    <div class="row pt-24" *ngIf="returnedDistrictSearch?.length > 0 && !editDistrict">
+                        <div class="col">
+                            <label class="default-label">Selecione um bairro</label>
+                            <div class="districts-list" [ngClass]="{'disabled-districts-list': !district.status}" *ngFor="let district of returnedDistrictSearch">
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="f-24">
+                                            {{district.name}} - <span class="f-18"
+                                                *ngIf="!district.status">Inativo</span> <span class="f-18" *ngIf="district.status">Ativo</span>
+                                        </span>
+                                    </div>
+                                    <div class="col-2 center">
+                                        <span class="under-line clickable" (click)="editDistrict = true; editDistrictBody = district">Editar</span>
+                                    </div>
+                                    <div class="col-2 right">
+                                        <button class="btn btn-default" *ngIf="district.status" (click)="updateDistrictStatus(district.id)">DESATIVAR</button>
+                                        <button class="btn btn-default" *ngIf="!district.status" (click)="updateDistrictStatus(district.id)">ATIVAR</button>
+                                    </div>
+                                </div>
+                                <div class="row pt-8">
+                                    <div class="col">
+                                        <label for="" class="default-label">Tempo de entrega</label>
+                                        <br>
+                                        <span class="f-16">{{district.timeToDelivery}} minutos</span>
+                                    </div>
+                                    <div class="col">
+                                        <label for="" class="default-label">Valor de entrega</label>
+                                        <br>
+                                        <span class="f-16">{{district.value | currencyFormat}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row align-items-end" *ngIf="editDistrict">
+                        <div class="col">
+                            <label class="default-label">Tempo de entrega</label>
+                            <input type="text" class="text" [(ngModel)]="editDistrictBody.timeToDelivery">
+                        </div>
+                        <div class="col">
+                            <label class="default-label">Valor de entrega</label>
+                            <input type="text" class="text" [(ngModel)]="editDistrictBody.value">
+                        </div>
+                        <div class="col-2">
+                            <span class="under-line clickable" (click)="editDistrict = false; editDistrictBody = null">Cancelar</span>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-default" (click)="updateDistrict(editDistrictBody)">SALVAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

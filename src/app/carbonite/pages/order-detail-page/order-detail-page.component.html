@@ -1,0 +1,111 @@
+<div id="full-orders-page" class="wrapper">
+    <div class="container" *ngIf="!admin">
+        <div class="row">
+            <div class="col right">
+                <span class="f-32" [routerLink]="['/products']" routerLinkActive="router-link-active"><i
+                        class="fas fa-times"></i></span>
+            </div>
+        </div>
+        <div class="row pt-24">
+            <div class="col-5 left">
+                <span class="f-18">{{detailOrder?.createdDate}}</span>
+            </div>
+            <div class="col left">
+                <span class="f-18" *ngIf="detailOrder?.status == 1">Pedido Criado</span>
+                <span class="f-18" *ngIf="detailOrder?.status == 2">Em preparação </span>
+                <span class="f-18" *ngIf="detailOrder?.status == 3">Saiu para entrega</span>
+                <span class="f-18" *ngIf="detailOrder?.status == 4">Concluído</span>
+            </div>
+        </div>
+        <div class="row pt-24 border-top">
+            <div class="col left">
+                <span class="f-18">Resumo do pedido</span>
+            </div>
+        </div>
+        <div class="row pt-24 pb-48" *ngFor="let item of detailOrder?.items">
+            <div class="col-8 left">
+                <span class="f-16">{{item.name}} - {{item.quantity}}x</span>
+            </div>
+            <div class="col right'">
+                <span class="f-16">{{item.price | currencyFormat}}</span>
+            </div>
+        </div>
+        <div class="row pt-48">
+            <div class="col-8">
+                <span class="f-16">Subtotal</span>
+            </div>
+            <div class="col right">
+                <span class="f-16">{{detailOrder.subTotal | currencyFormat}}</span>
+            </div>
+        </div>
+        <div class="row pt-24">
+            <div class="col-8">
+                <span class="f-16">Valor da entrega</span>
+            </div>
+            <div class="col right">
+                <span class="f-16">{{detailOrder.deliveryPrice | currencyFormat}}</span>
+            </div>
+        </div>
+        <div class="row pt-32">
+            <div class="col-7">
+                <span class="f-24">Total</span>
+            </div>
+            <div class="col right">
+                <span class="f-24">{{detailOrder.price | currencyFormat}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="container" *ngIf="admin">
+        <div class="row right pb-24">
+            <div class="col left">
+                <span class="f-24" [routerLink]="['/full-orders']"><i class="fas fa-home"></i></span>
+            </div>
+            <div class="col right">
+                <span class="f-24" (click)="print()"><i class="fas fa-print"></i></span>
+            </div>
+        </div>
+
+        <div class="row pl-32 pr-32 order-print-page">
+            <div class="col">
+                <div class="row pb-24">
+                    <div class="col left">
+                        <span class="f-24">{{detailOrder.userNname}}</span>
+                    </div>
+                    <div class="co right">
+                        <span class="f-24">{{detailOrder.createdDate}}</span>
+                    </div>
+                </div>
+                <div class="row pb-24 bottom-line">
+                    <div class="col left">
+                        <span class="f-24">{{detailOrder.userPhone | mask: "(00) 0 0000 0000"}}</span>
+                    </div>
+                    <div class="col right">
+                        <span class="f-24">{{detailOrder.userEmail}}</span>
+                    </div>
+                </div>
+                <div class="row pt-32 pb-32" *ngFor="let item of detailOrder.items">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col left">
+                                <span class="f-24">{{item.quantity}}x - {{item.name}}</span>
+                            </div>
+                            <div class="col right">
+                                <span class="f-24">{{item.price | currencyFormat}}</span>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="item.note">
+                            <div class="col left">
+                                <span class="f-24">{{item.note}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col right">
+                        <span class="f-32">Total: {{detailOrder.price | currencyFormat}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

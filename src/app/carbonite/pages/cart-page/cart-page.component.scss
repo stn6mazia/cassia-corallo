@@ -1,0 +1,25 @@
+@import '../../shared/styles/mixxins';
+#cart-page {
+    background-color: $default-black;
+    color: $default-white;
+}
+
+.cart-card {
+    padding: 16px 18px 16px 18px;
+    border: 1px solid $default-white;
+    margin: 24px 0 24px 0;
+}
+
+.f-12 {
+    font-size: 12px;
+}
+
+.bt-divisor {
+    border-top: white solid 1px;
+}
+
+.address-card {
+    padding: 16px;
+    border: solid white 1px;
+    background-color: $default-gray;
+}

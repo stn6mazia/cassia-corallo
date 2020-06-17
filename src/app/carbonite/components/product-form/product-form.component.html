@@ -1,0 +1,42 @@
+<div class="row pt-32 center">
+    <div class="col">
+        <span class="pt-24">
+            Preencha todos os campos e atualize sua base de produtos
+        </span>
+    </div>
+</div>
+<form [formGroup]="productForm">
+    <div class="row">
+        <div class="col">
+            <input formControlName="image" type="file" (input)="saveImgBaseSixtyFour($event)">
+        </div>
+    </div>
+    <div class="row pt-16">
+        <div class="col">
+            <input type="text" class="text" formControlName="name" [(ngModel)]="product.name" placeholder="Nome do produto">
+        </div>
+        <div class="col">
+            <select formControlName="category" class="select custom-select text" [(ngModel)]="product.category" #categoryInput (click)="product.category = categoryInput.value">
+                <option *ngFor="let category of categoriesList" [value]="category.name">{{category.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="row pt-16">
+        <div class="col">
+            <textarea class="text" rows="2" formControlName="description" [(ngModel)]="product.desription" placeholder="Descrição do produto"></textarea>
+        </div>
+    </div>
+    <div class="row pt-16">
+        <div class="col">
+            <input type="tel" class="text" formControlName="price" [(ngModel)]="product.price" placeholder="Valor do produto">
+        </div>
+    </div>
+    <div class="row pt-40">
+        <div class="col center">
+            <span (click)="emitCloseForm.emit(false)" class="under-line clickable">Cancelar</span>
+        </div>
+        <div class="col center">
+            <button [disabled]="!productForm.valid" class="btn btn-default" (click)="onSubmit()">SALVAR</button>
+        </div>
+    </div>
+</form>

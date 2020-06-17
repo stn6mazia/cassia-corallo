@@ -1,0 +1,10 @@
+@import '../../shared/styles/mixxins';
+#full-orders-page {
+    background-color: $default-gray;
+    color: $default-white;
+    overflow: hidden;
+}
+
+.bottom-line {
+    border-bottom: solid 1px $default-white;
+}

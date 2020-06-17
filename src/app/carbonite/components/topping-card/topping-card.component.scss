@@ -1,0 +1,22 @@
+@import '../../shared/styles/mixxins';
+.product-box {
+    border: 1px solid $default-white;
+    padding: 16px 16px 16px 16px;
+    margin: 24px 0 24px 0;
+    background-color: $default-dark-gray;
+}
+
+.red-border {
+    border: 1px solid $default-dark-orange;
+    padding: 16px 16px 16px 16px;
+    margin: 24px 0 24px 0;
+    background-color: $default-dark-gray;
+}
+
+.plus-sect {
+    width: 100%;
+    margin-top: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    text-align: center;
+}

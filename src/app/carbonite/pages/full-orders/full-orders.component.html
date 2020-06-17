@@ -1,0 +1,323 @@
+<div id="full-orders-page" class="wrapper">
+    <div class="container">
+        <div class="row right pb-24">
+            <div class="col-3 pl-40 left">
+                <button *ngIf="!ShowDoneOrders" (click)="ShowDoneOrders = !ShowDoneOrders" class="btn btn-default">PEDIDOS CONCLUÍDOS</button>
+                <button *ngIf="ShowDoneOrders" (click)="ShowDoneOrders = !ShowDoneOrders" class="btn btn-default">PEDIDOS EM ANDAMENTO</button>
+            </div>
+            <div class="col right pr-16">
+                <div class="dropdown">
+                    <span class="f-24" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars"></i></span>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" [routerLink]="['/products']" routerLinkActive="router-link-active">Produtos</a>
+                        <a class="dropdown-item" [routerLink]="['/store-settings']">Configurações da loja</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" (click)="logout()">Sair <i class="fas fa-power-off"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" *ngIf="!ShowDoneOrders">
+        <div class="cards-row">
+            <div class="card-col">
+                <div class="container">
+                    <div class="row left pt-24 pl-16 pb-16">
+                        <div class="col">
+                            <span class="f-24">Pedidos pendentes</span>
+                        </div>
+                        <div class="col right pr-32">
+                            <span class="f-18">{{activeOrders.length}} Pedidos</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-scroll">
+                    <div class="row order-spec" *ngFor="let order of activeOrders">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col left">
+                                    <span class="f-24 f-bold">
+                                        {{ order.userNname }}
+                                    </span>
+                                </div>
+                                <div class="col right">
+                                    <span class="f-24">
+                                        {{order.price | currencyFormat}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row pt-16">
+                                <div class="col">
+                                    <span class="f-18 f-bold">Metodo de pagamento</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span class="f-16" *ngIf="order.paymentType == 1">Pagamento na entrega</span>
+                                    <span class="f-16" *ngIf="order.paymentType == 2">Mercado pago</span>
+                                </div>
+                            </div>
+                            <div class="row pt-16" *ngIf="order.paymentType == 2">
+                                <div class="col">
+                                    <span class="f-18 f-bold">Link Mercado Pago</span>
+                                    <br>
+                                    <input type="text" class="text" [(ngModel)]="whatsappLink">
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="order.paymentType == 2">
+                                <div class="col">
+                                    <button class="btn btn-default" (click)="sendWhatssappMsg(order)">ENVIAR LINK</button>
+                                </div>
+                            </div>
+                            <div class="row pt-16">
+                                <div class="col">
+                                    <span class="f-18 f-bold">Endereço de entrega</span>
+                                </div>
+                            </div>
+                            <div class="row pt-8">
+                                <div class="col">
+                                    <span class="f-16">{{order?.userAddress?.address}},
+                                        {{order?.userAddress?.number}} -
+                                        {{order?.userAddress?.neightborhood}}</span>
+                                </div>
+                            </div>
+                            <div class="row pt-16">
+                                <div class="col">
+                                    <span class="f-16">Pedido relizado em {{ order.createdDate }}</span>
+                                </div>
+                            </div>
+                            <div class="row f-24">
+                                <div class="col center">
+                                    <span class="under-line f-16 clickable" (click)="detailPage(order)">Ver
+                                        detalhes</span>
+                                </div>
+                            </div>
+                            <div class="row pt-24">
+                                <div class="col">
+                                    <div class="btn-sect pt-16">
+                                        <button class="btn btn-default" (click)="aproveOrder(order.key); orderPayedMsg(order)">Aprovar
+                                            pedido</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-col">
+                <div class="container">
+                    <div class="row left pt-24 pl-16 pb-16">
+                        <div class="col">
+                            <span class="f-24">Em preparação</span>
+                        </div>
+                        <div class="col right pr-32">
+                            <span class="f-18">{{preparingOrders.length}} Pedidos</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-scroll">
+                    <div class="row order-spec" *ngFor="let order of preparingOrders">
+                        <div class="col left">
+                            <div class="row">
+                                <div class="col left">
+                                    <span class="f-24 f-bold">
+                                        {{ order.userNname }}
+                                    </span>
+                                </div>
+                                <div class="col right">
+                                    <span class="f-24">
+                                        {{order.price | currencyFormat}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row pt-16">
+                                <div class="col">
+                                    <span class="f-18 f-bold">Resumo do pedido</span>
+                                </div>
+                            </div>
+                            <div class="row f-18" *ngFor="let item of order.items">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <span class="f-16">{{item.name}} - {{item.quantity}}x</span>
+                                        </div>
+                                        <div class="col right">
+                                            <span class="f-16">{{item.price | currencyFormat}}</span>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="item.toppings">
+                                        <div class="row pl-24" *ngFor="let topping of item.toppings">
+                                            <div class="col">• {{topping.name}} - {{topping.quantity}}x</div>
+                                            <div class="col right">
+                                                <span class="f-16">{{topping.price | currencyFormat}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row pt-16">
+                                <div class="col">
+                                    <span class="f-18 f-bold">Endereço de entrega</span>
+                                </div>
+                            </div>
+                            <div class="row pt-8">
+                                <div class="col">
+                                    <span class="f-16">{{order?.userAddress?.address}},
+                                        {{order?.userAddress?.number}} -
+                                        {{order?.userAddress?.neightborhood}}</span>
+                                </div>
+                            </div>
+                            <div class="row pt-16">
+                                <div class="col-8">
+                                    <span class="f-16">Tempo de entrega após aprovação:</span>
+                                </div>
+                                <div class="col right">
+                                    <span class="f-16">{{order.timeToDelivery}} minutos</span>
+                                </div>
+                            </div>
+                            <div class="row pt-16">
+                                <div class="col">
+                                    <span class="f-16">Pedido relizado em {{ order.createdDate }}</span>
+                                </div>
+                            </div>
+                            <div class="row f-24">
+                                <div class="col center">
+                                    <span class="under-line f-16 clickable" (click)="detailPage(order)">Ver
+                                        detalhes</span>
+                                </div>
+                            </div>
+                            <div class="btn-sect pt-16">
+                                <button class="btn btn-default" (click)="doneOrder(order.key, order.userNname, order.userPhone); orderDoneMsg(order)">Pedido
+                                    pronto</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-col">
+                <div class="container">
+                    <div class="row left pt-24 pl-16 pb-16">
+                        <div class="col">
+                            <span class="f-24">Pedidos prontos</span>
+                        </div>
+                        <div class="col right pr-32">
+                            <span class="f-18">{{doneOrders.length}} Pedidos</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-scroll">
+                    <div class="row order-spec" *ngFor="let order of doneOrders">
+                        <div class="col left">
+                            <div class="row">
+                                <div class="col left">
+                                    <span class="f-24 f-bold">
+                                        {{ order.userNname }}
+                                    </span>
+                                </div>
+                                <div class="col right">
+                                    <span class="f-24">
+                                        {{order.price | currencyFormat}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row pt-16">
+                                <div class="col">
+                                    <span class="f-18 f-bold">Endereço de entrega</span>
+                                </div>
+                            </div>
+                            <div class="row pt-8">
+                                <div class="col">
+                                    <span class="f-16">{{order?.userAddress?.address}},
+                                        {{order?.userAddress?.number}} -
+                                        {{order?.userAddress?.neightborhood}}</span>
+                                </div>
+                            </div>
+                            <div class="row pt-16">
+                                <div class="col-8">
+                                    <span class="f-16">Tempo de entrega após aprovação:</span>
+                                </div>
+                                <div class="col right">
+                                    <span class="f-16">{{order.timeToDelivery}} minutos</span>
+                                </div>
+                            </div>
+                            <div class="row pt-16">
+                                <div class="col">
+                                    <span class="f-16">Pedido relizado em {{ order.createdDate }}</span>
+                                </div>
+                            </div>
+                            <div class="row f-24">
+                                <div class="col center">
+                                    <span class="under-line f-16 clickable" (click)="detailPage(order)">Ver
+                                        detalhes</span>
+                                </div>
+                            </div>
+                            <div class="btn-sect pt-16">
+                                <button class="btn btn-default" (click)="payedOrder(order.key)">Pedido pago
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" *ngIf="ShowDoneOrders">
+        <div class="row">
+            <div class="col">
+                <div class="done-box">
+                    <div class="row align-items-end">
+                        <div class="col-8">
+                            <span class="f-24">Pedidos concluídos</span>
+                        </div>
+                    </div>
+                    <div class="row pt-32">
+                        <div class="col-1">
+                            <span class="f-bold f-18">ID</span>
+                        </div>
+                        <div class="col-3">
+                            <span class="f-bold f-18">Nome</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="f-bold f-18">Criação</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="f-bold f-18">Entrega</span>
+                        </div>
+                        <div class="col-1">
+                            <span class="f-bold f-18">Status</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="f-bold f-18">Valor</span>
+                        </div>
+                        <div class="col-1">
+                            <span class="f-bold f-18">Detalhes</span>
+                        </div>
+                    </div>
+                    <div class="row done-orders-list" *ngFor="let item of payedOrders; let i = index">
+                        <div class="col-1">
+                            <span class="f-18">{{i + 1}}</span>
+                        </div>
+                        <div class="col-3">
+                            <span class="f-18">{{item.userNname}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="f-18">{{item.createdDate}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="f-18">{{item.updateDate}}</span>
+                        </div>
+                        <div class="col-1">
+                            <span class="f-18">Pago</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="f-18">{{item.price | currencyFormat}}</span>
+                        </div>
+                        <div class="col-1">
+                            <span class="f-18 under-line clickable" (click)="detailPage(item)">Detalhes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

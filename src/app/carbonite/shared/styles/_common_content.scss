@@ -1,0 +1,233 @@
+.wrapper {
+    padding-top: 32px;
+    padding-bottom: 64px;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.wrapper::-webkit-scrollbar {
+    width: 0px;
+    background-color: #F5F5F5;
+}
+
+.wrapper::-webkit-scrollbar-thumb {
+    background-color: #000000;
+}
+
+.wrapper::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #F8F8F8;
+}
+
+.center {
+    text-align: center;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+.justify {
+    text-align: justify
+}
+
+.full-height {
+    height: 100%;
+}
+
+.full-width {
+    width: 100%
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.bottom-button {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    background-color: $default-orange;
+    width: 100%;
+    height: 3rem;
+    padding: 10px;
+}
+
+.disabled-bottom {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    background-color: $default-light-gray;
+    width: 100%;
+    color: white;
+    opacity: 0.3;
+    height: 3rem;
+    padding: 10px;
+}
+
+.basic-padding {
+    padding-bottom: 8px;
+    padding-top: 8px;
+}
+
+.pl-0 {
+    padding-left: 0px !important;
+}
+
+.pl-8 {
+    padding-left: 8px !important;
+}
+
+.pl-16 {
+    padding-left: 16px !important;
+}
+
+.pl-24 {
+    padding-left: 24px !important;
+}
+
+.pl-32 {
+    padding-left: 32px !important;
+}
+
+.pl-48 {
+    padding-left: 48px !important;
+}
+
+.pr-0 {
+    padding-right: 0px !important;
+}
+
+.pr-8 {
+    padding-right: 8px !important;
+}
+
+.pr-16 {
+    padding-right: 16px !important;
+}
+
+.pr-24 {
+    padding-right: 24px !important;
+}
+
+.pr-32 {
+    padding-right: 32px !important;
+}
+
+.pr-48 {
+    padding-right: 48px !important;
+}
+
+.pt-0 {
+    padding-top: 0px !important;
+}
+
+.pt-8 {
+    padding-top: 8px !important;
+}
+
+.pt-16 {
+    padding-top: 16px !important;
+}
+
+.pt-24 {
+    padding-top: 24px !important;
+}
+
+.pt-32 {
+    padding-top: 32px !important;
+}
+
+.pt-40 {
+    padding-top: 40px !important;
+}
+
+.pt-48 {
+    padding-top: 48px !important;
+}
+
+.pb-0 {
+    padding-bottom: 0px !important;
+}
+
+.pb-8 {
+    padding-bottom: 8px !important;
+}
+
+.pb-16 {
+    padding-bottom: 16px !important;
+}
+
+.pb-24 {
+    padding-bottom: 24px !important;
+}
+
+.pb-32 {
+    padding-bottom: 32px !important;
+}
+
+.pb-48 {
+    padding-bottom: 48px !important;
+}
+
+.f-6 {
+    font-size: 6px;
+}
+
+.f-8 {
+    font-size: 8px;
+}
+
+.f-14 {
+    font-size: 14px;
+}
+
+.f-16 {
+    font-size: 16px;
+}
+
+.f-18 {
+    font-size: 18px;
+}
+
+.f-24 {
+    font-size: 24px;
+}
+
+.f-32 {
+    font-size: 32px;
+}
+
+.f-40 {
+    font-size: 40px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.clickable:hover {
+    cursor: pointer;
+    color: $default-light-orange;
+}
+
+.under-line {
+    text-decoration: underline;
+}
+
+.unfocus-text {
+    color: $default-light-gray
+}
+
+.red {
+    color: red;
+}
+
+.f-bold {
+    font-weight: 800;
+}

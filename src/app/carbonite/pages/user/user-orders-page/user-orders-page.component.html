@@ -1,0 +1,45 @@
+<div id="user-orders-page" class="wrapper">
+    <div class="container">
+        <div *ngIf="!detail">
+            <div class="row">
+                <div class="col left pl-24 pb-32">
+                    <span class="f-32" [routerLink]="['/products']"><i class="fas fa-home"></i></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col left pl-24 pb-32">
+                    <span class="f-32">Seus pedidos</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="order-card" *ngFor="let order of ordersList">
+                        <div class="row pb-16">
+                            <div class="col left">
+                                <span class="f-14 unfocus-text">Status: 
+                                    <span *ngIf="order.status == 1">Criado</span>
+                                <span *ngIf="order.status == 2">Em andamento</span>
+                                <span *ngIf="order.status == 3">Saiu para entrega</span>
+                                <span *ngIf="order.status == 4">Concluído</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-7 left">
+                                <span class="f-18">{{order.createdDate}}</span>
+                            </div>
+                            <div class="col-5 right">
+                                <span class="f-18">{{order.price | currencyFormat}}</span>
+                            </div>
+                        </div>
+                        <div class="row pt-16">
+                            <div class="col center">
+                                <span class="f-16 under-line" (click)="showDetail(order.key)">Ver detalhes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

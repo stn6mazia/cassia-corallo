@@ -1,0 +1,71 @@
+<div id="product-page" class="wrapper" *ngIf="selectedProduct">
+    <div class="container">
+        <div class="row">
+            <div class="col left">
+                <h2>{{selectedProduct.name}}</h2>
+            </div>
+            <div class="col right">
+                <i class="fas fa-times" [routerLink]="['/products']" routerLinkActive="router-link-active"></i>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col center">
+                <img class="detail-img-demo" src="data:image/jpeg;base64,{{selectedProduct.image}}" alt="">
+            </div>
+        </div>
+        <div class="row pt-24">
+            <div class="col">
+                <span>{{selectedProduct.desription}}</span>
+            </div>
+        </div>
+        <div class="row pt-24 complements-section">
+            <div class="col">
+                <div *ngFor="let complement of toppingsList">
+                    <div class="complement-sect" *ngIf="complement.category == selectedProduct.category">
+                        <div class="row">
+                            <div class="col-7 left">
+                                <span class="f-18">{{complement.name}}</span>
+                            </div>
+                            <div class="col-5 right">
+                                <span class="f-16">{{complement.price | currencyFormat}}</span>
+                            </div>
+                        </div>
+                        <div class="row pt-16 align-items-center justify-content-center">
+                            <div class="col-4 center">
+                                <button (click)="changeComplementQUantity(complement.key, '-')" [disabled]="complement.quantity == 0" class="btn btn-default rounded">-</button>
+                            </div>
+                            <div class="col-4 center">{{complement.quantity}}</div>
+                            <div class="col-4 center">
+                                <button (click)="changeComplementQUantity(complement.key, '+')" class="btn btn-default rounded">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-16" *ngIf="!addingNote">
+            <div class="col center">
+                <span class="under-line white" (click)="addingNote = true">Adicionar observações</span>
+            </div>
+        </div>
+        <div class="row pt-16" *ngIf="addingNote">
+            <div class="col">
+                <textarea class="text" rows="2" [(ngModel)]="productNote" placeholder="Quer sem queijo? Sem maionese?"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-button" (click)="addToCart(selectedProduct)">
+        <div class="row">
+            <div class="col-9 center p-0">
+                <span class="f-16">
+                    ADICIONAR AO CARRINHO
+                </span>
+            </div>
+            <div class="col left p-0">
+                <span class="f-16">
+                    {{selectedProduct.price | currencyFormat}}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

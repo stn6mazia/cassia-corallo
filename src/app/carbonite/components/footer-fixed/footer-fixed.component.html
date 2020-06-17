@@ -1,0 +1,23 @@
+<div id="fixed-footer" *ngIf="!loading">
+    <div class="container">
+        <div class="row" (click)="openCart()" *ngIf="cartId == 1">
+            <div class="col center">
+                <span class="f-16">VER CARRINHO</span>
+            </div>
+            <div class="col-4 center">
+                <span class="f-18"><i class="fas fa-shopping-cart"></i> {{cartQuantity}}</span>
+            </div>
+        </div>
+        <div class="row" (click)="checkout()" *ngIf="cartId == 2">
+            <div class="col center p-0">
+                <span (click)="checkout()" class="f-16">FAZER PEDIDO</span>
+            </div>
+            <div class="col-4 center p-0">
+                <span (click)="checkout()" class="f-18">{{cartPrice | currencyFormat}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="loading">
+    <loading></loading>
+</div>

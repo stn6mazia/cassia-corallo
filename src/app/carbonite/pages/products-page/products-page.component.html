@@ -1,0 +1,151 @@
+<div id="products-page" [ngClass]="{'admin-prod-page': admin}" class="wrapper">
+    <div class="container">
+        <div class="row pb-24">
+            <div class="col right" *ngIf="!haveUser">
+                <span class="f-24" [routerLink]="['/login']" routerLinkActive="router-link-active">
+                    <i class="fas fa-user "></i>
+                </span>
+            </div>
+            <div class="col right pr-16" *ngIf="haveUser">
+                <div class="dropdown" *ngIf="!admin">
+                    <span class="f-24" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars"></i></span>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" *ngIf="!admin" (click)="goToOrders()">Meus pedidos</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" (click)="logout()">Sair <i class="fas fa-power-off"></i></a>
+                    </div>
+                </div>
+                <div class="dropdown" *ngIf="admin">
+                    <span class="f-24" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars"></i></span>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" [routerLink]="['/full-orders']" routerLinkActive="router-link-active">Lista de pedidos</a>
+                        <a class="dropdown-item" [routerLink]="['/store-settings']">Configurações da loja</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" (click)="logout()">Sair <i class="fas fa-power-off"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="!newCategoryForm && admin">
+            <div class="col">
+                <button (click)="newCategoryForm = true" class="btn btn-default">NOVA CATEGORIA +</button>
+            </div>
+        </div>
+        <div class="row align-items-end" *ngIf="newCategoryForm && admin">
+            <div class="col">
+                <label for="" class="default-label">Nome da categoria</label>
+                <input type="text" #categoryInput class="text">
+            </div>
+            <div class="col">
+                <label for="" class="default-label">Categoria com extras?</label>
+                <select #categoryExtraInput name="" id="" class="text">
+                    <option value="1">Sim</option>
+                    <option value="2">Não</option>
+                </select>
+            </div>
+            <div class="col-2 center pb-8">
+                <a class="white clickable" (click)="newCategoryForm = false">Cancelar</a>
+            </div>
+            <div class="col-2">
+                <button class="btn btn-default" (click)="createCategory(categoryInput.value, categoryExtraInput.value)">SALVAR</button>
+            </div>
+        </div>
+        <div class="row pt-24" *ngIf="admin">
+            <div class="col">
+                <label class="default-label">Selecione uma categoria</label>
+                <select #categorySelect (input)="selectCategoryToList(categorySelect.value)" name="" id="" class="text">
+                    <option value="" selected></option>
+                    <option *ngFor="let category of categoryList" [value]="category.name">{{category.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row pt-24">
+            <div class="col">
+                <h2>
+                    {{selectedCategoryList}}
+                </h2>
+            </div>
+        </div>
+        <div class="row full-height justify-content-center center" *ngIf="!admin">
+            <div class="col">
+                <produc-card [products]="productsList"></produc-card>
+            </div>
+        </div>
+        <div *ngIf="admin && selectedCategoryList">
+            <div class="row">
+                <div class="col">
+                    <div class="row pt-40" *ngIf="!createUser">
+                        <div class="col">
+                            <button class="btn btn-default" (click)="createUser = true">Novo produto</button>
+                        </div>
+                    </div>
+                    <div class="row pt-40" *ngIf="!createUser">
+                        <div class="col center">
+                            <div *ngIf="!haveProduct">
+                                <br *ngIf="!haveProduct">
+                                <span *ngIf="!haveProduct" class="f-32"><i class="far fa-folder-open"></i></span>
+                                <br *ngIf="!haveProduct">
+                                <span *ngIf="!haveProduct" class="f-32">Parece que não há produtos cadastrados</span>
+                            </div>
+                            <div *ngIf="haveProduct">
+                                <produc-card [category]="selectedCategoryList" [products]="productsList"></produc-card>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="createUser">
+                        <div class="col">
+                            <product-form (emitCloseForm)="createUser = $event"></product-form>
+                        </div>
+                    </div>
+                    <div class="row pt-40" *ngIf="!createUser">
+                        <div class="col">
+                            <button class="btn btn-default" (click)="createUser = true">Novo produto</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col" *ngIf="categoryWithExtra == 1">
+                    <div class="row pt-40" *ngIf="!createTopping">
+                        <div class="col">
+                            <button class="btn btn-default" (click)="createTopping = true">Novo topping</button>
+                        </div>
+                    </div>
+                    <div class="row pt-40" *ngIf="!createTopping">
+                        <div class="col center">
+                            <div *ngIf="!haveToppings">
+                                <br *ngIf="!haveToppings">
+                                <span *ngIf="!haveToppings" class="f-32"><i class="far fa-folder-open"></i></span>
+                                <br *ngIf="!haveToppings">
+                                <span *ngIf="!haveToppings" class="f-32">Parece que não há produtos cadastrados</span>
+                            </div>
+                            <div *ngIf="haveToppings">
+                                <topping-card [toppings]="toppingsList"></topping-card>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="createTopping">
+                        <div class="col">
+                            <topping-form (emitCloseForm)="createTopping = $event"></topping-form>
+                        </div>
+                    </div>
+                    <div class="row pt-40" *ngIf="!createTopping">
+                        <div class="col">
+                            <button class="btn btn-default" (click)="createTopping = true">Novo topping</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!admin">
+        <div class="bottom-button" [routerLink]="['/cart']" routerLinkActive="router-link-active">
+            <div class="row">
+                <div class="col center">
+                    <span class="f-16">VER CARRINHO</span>
+                </div>
+                <div class="col-5 center">
+                    <span class="f-18"><i class="fas fa-shopping-cart"></i> {{cartQuantity}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

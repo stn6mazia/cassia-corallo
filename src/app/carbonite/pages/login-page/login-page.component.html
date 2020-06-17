@@ -1,0 +1,103 @@
+<div id="login" class="wrapper">
+    <div class="container">
+        <div class="row pb-24">
+            <div class="col right">
+                <span class="f-24" [routerLink]="['/']" routerLinkActive="router-link-active">
+                    <i class="fas fa-times"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="container full-height">
+        <div class="row full-height justify-content-center align-items-center center">
+            <div class="col" *ngIf="pageStep == 1">
+                <div class="row pb-24">
+                    <div class="col">
+                        <img src="../../../../assets/hamburger.png" alt="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span class="f-32">Carbonite Burger</span>
+                    </div>
+                </div>
+                <div class="row pt-24">
+                    <div class="col">
+                        <span class="f-24">Faça Login ou se cadastre <span class="f-24" *ngIf="needLoginToCheckout">para concluir seu pedido</span>.</span>
+                    </div>
+                </div>
+                <form [formGroup]="login">
+                    <div class="row pt-16">
+                        <div class="col">
+                            <input formControlName="email" type="email" class="text" placeholder="email">
+                        </div>
+                    </div>
+                    <div class="row pt-16">
+                        <div class="col">
+                            <input formControlName="password" type="password" class="text" placeholder="Senha">
+                        </div>
+                    </div>
+                    <div class="row pt-40">
+                        <div class="col">
+                            <button [disabled]="!login.valid" class="btn btn-default" (click)="doLogin()">Login</button>
+                        </div>
+                    </div>
+                    <div class="row pt-16">
+                        <div class="col">
+                            <span class="f-16 clickable under-line" (click)="pageStep = 2">Registrar-se</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col" *ngIf="pageStep == 2">
+                <div class="row">
+                    <div class="col">
+                        <span class="f-32">É novo por aqui?</span>
+                    </div>
+                </div>
+                <div class="row pt-24">
+                    <div class="col">
+                        <span class="f-24">Faça um cadastro então!</span>
+                    </div>
+                </div>
+                <form [formGroup]="register" (ngSubmit)="onSubmit()">
+                    <div class="row pt-16">
+                        <div class="col">
+                            <input formControlName="email" [(ngModel)]="user.email" type="email" class="text" placeholder="Email" (input)="checkUser()">
+                        </div>
+                    </div>
+                    <div class="row left" *ngIf="existentUser">
+                        <div class="col">
+                            <span class="error-text">Esse email já foi cadastrado.</span>
+                        </div>
+                    </div>
+                    <div class="row pt-16">
+                        <div class="col">
+                            <input formControlName="name" [(ngModel)]="user.name" type="text" class="text" placeholder="Nome Completo">
+                        </div>
+                    </div>
+                    <div class="row pt-16">
+                        <div class="col">
+                            <input formControlName="phone" [(ngModel)]="user.phone" type="tel" class="text" placeholder="Celular">
+                        </div>
+                    </div>
+                    <div class="row pt-16">
+                        <div class="col">
+                            <input formControlName="password" [(ngModel)]="user.password" type="password" class="text" placeholder="Senha">
+                        </div>
+                    </div>
+                    <div class="row pt-40">
+                        <div class="col">
+                            <button [disabled]="!submitted || existentUser || !register.valid" class="btn btn-default" (click)="onSubmit()">Registrar-se</button>
+                        </div>
+                    </div>
+                    <div class="row pt-16">
+                        <div class="col">
+                            <span class="f-16 clickable under-line" (click)="pageStep = 1">cancelar</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

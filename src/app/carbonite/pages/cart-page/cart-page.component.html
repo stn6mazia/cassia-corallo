@@ -1,0 +1,233 @@
+<div id="cart-page" class="wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col right pr-24 pb-32">
+                <span class="f-32" [routerLink]="['/products']" routerLinkActive="router-link-active"><i
+                        class="fas fa-times"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="container" *ngIf="subTotal == 0">
+        <div class="row full-height">
+            <div class="col center">
+                <h1>Sem produtos?</h1>
+                <br>
+                <H2>Que tal adiccionar alguma coisa?</H2>
+            </div>
+        </div>
+        <div class="row pt-24">
+            <div class="col">
+                <button class="btn btn-default" [routerLink]="['/products']" routerLinkActive="router-link-active">VER PRODUTOS</button>
+            </div>
+        </div>
+    </div>
+    <div class="container" *ngIf="subTotal > 0">
+        <div class="row pt-24">
+            <div class="col">
+                <h4>Seus produtos</h4>
+            </div>
+        </div>
+        <div *ngFor="let item of cartItems">
+            <div class="cart-card" *ngIf="item.quantity > 0">
+                <div class="row">
+                    <div class="col-7 left">
+                        <span class="f-18">{{item.name}}</span>
+                    </div>
+                    <div class="col-5 right">
+                        <span class="f-18">{{item.price | currencyFormat}}</span>
+                    </div>
+                </div>
+                <div class="row" *ngIf="item.toppings.length > 0 && !showCOmplements">
+                    <div class="col center">
+                        <span class="under-line f-14" (click)="showCOmplements = true; showCOmplementsId = item.key">Ver Complementos</span>
+                    </div>
+                </div>
+                <div class="row pt-24 bt-divisor" *ngIf="showCOmplementsId == item.key && showCOmplements">
+                    <div class="col">
+                        <div class="row" *ngFor="let complement of item.toppings">
+                            <div class="col left">
+                                <span class="f-12">{{complement.name}} - {{complement.price | currencyFormat}}</span>
+                            </div>
+                            <div class="col right">
+                                <span class="f-12">{{complement.quantity}}x</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-16 align-items-center justify-content-center">
+                    <div class="col-4 center">
+                        <button (click)="changeitemQUantity(item.cartItemId, '-')" class="btn btn-default rounded">-</button>
+                    </div>
+                    <div class="col-4 center">{{item.quantity}}</div>
+                    <div class="col-4 center">
+                        <button (click)="changeitemQUantity(item.cartItemId, '+')" class="btn btn-default rounded">+</button>
+                    </div>
+                </div>
+                <div class="row pt-24" *ngIf="item.note">
+                    <div class="col left">
+                        <span class="f-16">{{item.note}}</span>
+                    </div>
+                </div>
+                <div class="row pt-16">
+                    <div class="col center">
+                        <span class="f-16" (click)="removeItem(item.cartItemId)">Remover do carrinho</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-40 center">
+            <div class="col">
+                <span class="f-18 under-line" (click)="emptyCart()">Esvaziar carrinho</span>
+            </div>
+        </div>
+
+        <div class="row pt-24">
+            <div class="col left">
+                <h4>Onde deseja receber?</h4>
+            </div>
+        </div>
+
+        <div class="row pt-32" *ngIf="!userAddresses || addAddressForm">
+            <div class="col">
+                <div class="row pt-16">
+                    <div class="col">
+                        <label for="" class="default-label">Qual o nome desse endereço?</label>
+                        <input type="text" class="text" [(ngModel)]="address.name">
+                    </div>
+                </div>
+                <div class="row pt-16">
+                    <div class="col">
+                        <label for="" class="default-label">informe seu CEP</label>
+                        <input type="text" class="text" mask="00000-000" [(ngModel)]="address.zip" (input)="checkZip()">
+                    </div>
+                </div>
+                <div class="row pt-16">
+                    <div class="col">
+                        <label for="" class="default-label">Rua</label>
+                        <input type="text" class="text" [(ngModel)]="address.address">
+                    </div>
+                </div>
+                <div class="row pt-16">
+                    <div class="col">
+                        <label for="" class="default-label">Número</label>
+                        <input type="text" class="text" [(ngModel)]="address.number">
+                    </div>
+                </div>
+                <div class="row pt-16">
+                    <div class="col">
+                        <label for="" class="default-label">Complemento</label>
+                        <input type="text" class="text" [(ngModel)]="address.complement">
+                    </div>
+                </div>
+                <div class="row pt-16">
+                    <div class="col">
+                        <label for="" class="default-label">Bairro</label>
+                        <input type="text" class="text" (input)="checkUserDistrict()" [(ngModel)]="address.neightborhood">
+                    </div>
+                </div>
+                <div class="row" *ngIf="unlockByAddress == false">
+                    <div class="col">
+                        <span class="red f-16">Infelizmente não entregamos nesse endereço :(</span>
+                    </div>
+                </div>
+                <div class="row align-items-center pt-24">
+                    <div class="col-5 center" *ngIf="userAddresses">
+                        <span class="under-line" (click)="addAddressForm = !addAddressForm">Cancelar</span>
+                    </div>
+                    <div class="col">
+                        <button [disabled]="unlockByAddress == false" class="btn btn-default" (click)="saveAddress()">SALVAR ENDEREÇO</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="address-card" *ngIf="userAddresses && !addAddressForm">
+            <div class="row">
+                <div class="col">
+                    <span class="f-18">
+                        {{userAddresses.name}}
+                    </span>
+                </div>
+            </div>
+            <div class="row pt-16">
+                <div class="col">
+                    <span class="f-16">
+                        {{userAddresses.address}} - {{userAddresses.number}}, {{userAddresses.neightborhood}}
+                    </span>
+                </div>
+            </div>
+            <div class="row pt-8" *ngIf="userAddresses.complement">
+                <div class="col">
+                    <span class="f-16">
+                        {{userAddresses.complement}}
+                    </span>
+                </div>
+            </div>
+            <div class="row pt-8" *ngIf="userAddresses.addressPhone">
+                <div class="col">
+                    <span class="f-16">
+                        {{userAddresses.addressPhone}}
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col center">
+                    <span class="under-line" (click)="addAddressForm = true">Trocar o endereço</span>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-24" *ngIf="returnedDistrictInformation && !addAddressForm">
+            <div class="col">
+                <span class="f-18">Tempo para entrega: </span>
+                <span class="f-18">{{returnedDistrictInformation.timeToDelivery}} minutos</span>
+            </div>
+        </div>
+        <div class="row pt-16x" *ngIf="returnedDistrictInformation && !addAddressForm">
+            <div class="col">
+                <span class="f-18">Valor da entrega: </span>
+                <span class="f-18">{{returnedDistrictInformation.value | currencyFormat}}</span>
+            </div>
+        </div>
+        <div class="row pt-24 pb-24">
+            <div class="col">
+                <span class="f-24">Forma de pagamento </span>
+                <br>
+                <select name="" id="" class="text" #paymentSelect (input)="selectedPayment = paymentSelect.value">
+                    <option *ngIf="storeInfo.offlinePayment" value="1">Pagar na entrega</option>
+                    <option *ngIf="storeInfo.mpPayment" value="2">Mercado pago</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <span class="16" *ngIf="selectedPayment == 2">Após o recebimento do seu pedido nós enviaremos o link para o pagamento no seu whatsapp</span>
+            </div>
+        </div>
+        <div class="row pt-24 pb-24" *ngIf="!anotherPhone && selectedPayment == 2">
+            <div class="col center">
+                <span class="clickable under-line f-16" (click)="anotherPhone = true; order.userPhone = ''">Inserir outro telefone</span>
+            </div>
+        </div>
+        <div class="row pt-24 pb-24" *ngIf="anotherPhone && selectedPayment == 2">
+            <div class="col">
+                <span class="f-18">Insira um número com whatsapp</span>
+                <br>
+                <input type="text" [(ngModel)]="anotherPhoneNumber" mask="(00) 0 0000 0000" class="text">
+            </div>
+        </div>
+        <div class="row pt-16 pb-24" *ngIf="anotherPhone && selectedPayment == 2">
+            <div class=" col ">
+                <span class="f-16 under-line " (click)="anotherPhone= false; anotherPhoneNumber= '' ">Cancelar</span>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-button " (click)="checkout() " [ngClass]="{ 'disabled-bottom': subTotal==0 } ">
+        <div class="row ">
+            <div class="col center ">
+                <span>FAZER PEDIDO</span>
+            </div>
+            <div class="col-5 center ">
+                {{deliveryPrice + subTotal | currencyFormat}}
+            </div>
+        </div>
+    </div>
+</div>

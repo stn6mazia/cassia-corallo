@@ -1,0 +1,46 @@
+.text {
+    width: 100%;
+    background-color: $default-black;
+    border: none;
+    outline: hidden;
+    padding: 8px 4px 8px 4px;
+    color: black;
+    border-bottom: $default-white 1px solid;
+}
+
+.defaut-label {
+    color: $default-gray;
+}
+
+.btn-default {
+    width: 100%;
+    padding: 8px 4px 8px 4px;
+    color: $default-white;
+    background-color: $default-orange;
+}
+
+.btn-default:hover {
+    width: 100%;
+    padding: 8px 4px 8px 4px;
+    color: $default-white;
+    background-color: $default-light-orange;
+}
+
+.btn-green {
+    width: 100%;
+    padding: 8px 4px 8px 4px;
+    color: $default-black;
+    background-color: $default-green;
+}
+
+.btn-green:hover {
+    width: 100%;
+    padding: 8px 4px 8px 4px;
+    color: $default-black;
+    background-color: $default-light-green;
+}
+
+.error-text {
+    font-size: 16px;
+    color: $default-orange;
+}
