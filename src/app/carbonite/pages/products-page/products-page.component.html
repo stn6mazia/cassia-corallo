@@ -8,7 +8,8 @@
             </div>
             <div class="col right pr-16" *ngIf="haveUser">
                 <div class="dropdown" *ngIf="!admin">
-                    <span class="f-24" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars"></i></span>
+                    <span class="f-24" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false"><i class="fas fa-bars"></i></span>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" *ngIf="!admin" (click)="goToOrders()">Meus pedidos</a>
                         <div class="dropdown-divider"></div>
@@ -16,9 +17,11 @@
                     </div>
                 </div>
                 <div class="dropdown" *ngIf="admin">
-                    <span class="f-24" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars"></i></span>
+                    <span class="f-24" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false"><i class="fas fa-bars"></i></span>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" [routerLink]="['/full-orders']" routerLinkActive="router-link-active">Lista de pedidos</a>
+                        <a class="dropdown-item" [routerLink]="['/full-orders']"
+                            routerLinkActive="router-link-active">Lista de pedidos</a>
                         <a class="dropdown-item" [routerLink]="['/store-settings']">Configurações da loja</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" (click)="logout()">Sair <i class="fas fa-power-off"></i></a>
@@ -47,7 +50,8 @@
                 <a class="white clickable" (click)="newCategoryForm = false">Cancelar</a>
             </div>
             <div class="col-2">
-                <button class="btn btn-default" (click)="createCategory(categoryInput.value, categoryExtraInput.value)">SALVAR</button>
+                <button class="btn btn-default"
+                    (click)="createCategory(categoryInput.value, categoryExtraInput.value)">SALVAR</button>
             </div>
         </div>
         <div class="row pt-24" *ngIf="admin">
@@ -69,6 +73,34 @@
         <div class="row full-height justify-content-center center" *ngIf="!admin">
             <div class="col">
                 <produc-card [products]="productsList"></produc-card>
+            </div>
+        </div>
+        <div class="row pt-32 justify-content-center center" *ngIf="!admin">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <h4>
+                            Informações de contato
+                        </h4>
+                    </div>
+                </div>
+                <div class="row pt-24">
+                    <div class="col right">
+                        <a href="https://api.whatsapp.com/send?phone=55{{storeInfo.phone}}" target="blank" class="f-24">
+                            <i class="fab f-32 fa-whatsapp"></i>
+                        </a>
+                    </div>
+                    <div class="col left">
+                        <a href="mailto:{{storeInfo.email}}" target="blank" class="f-24">
+                            <i class="far f-32 fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span class="f-18">{{storeInfo.address}}, {{storeInfo.number}} - {{storeInfo.neightborhood}}</span>
+                    </div>
+                </div>
             </div>
         </div>
         <div *ngIf="admin && selectedCategoryList">

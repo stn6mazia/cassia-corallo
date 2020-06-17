@@ -21,6 +21,7 @@ export class ProductsPageComponent implements OnInit {
   newCategoryForm
   categoryWithExtra
 
+  storeInfo
   productsList
   toppingsList
   categoryList
@@ -53,6 +54,7 @@ export class ProductsPageComponent implements OnInit {
     } else {
       this.haveUser = false
     }
+    this.storeInfo = JSON.parse(sessionStorage.getItem('storeInfo'))
   }
 
   mountUser() {

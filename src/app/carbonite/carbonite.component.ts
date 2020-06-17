@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { FirebaseService } from './services/firebase.service';
 import { Product } from './shared/product';
 import { Router } from '@angular/router';
+import { StoreService } from './services/store.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'carbonite',
@@ -23,7 +25,8 @@ export class CarboniteComponent implements OnInit {
   items: Observable<any[]>;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private storeService: StoreService
   ) { }
 
   ngOnInit() {
@@ -38,6 +41,21 @@ export class CarboniteComponent implements OnInit {
       this.userId = false
       this.router.navigateByUrl('products')
     }
+    this.getStoreInformation()
+  }
+
+  getStoreInformation() {
+    this.storeService.getStoresList().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(p =>
+          ({ key: p.payload.key, ...p.payload.val() })
+        )
+      )
+    ).subscribe(store => {
+      if (store.length > 0) {
+        sessionStorage.setItem('storeInfo', JSON.stringify(store[0]))
+      }
+    });
   }
 
 
