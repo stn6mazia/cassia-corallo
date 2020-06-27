@@ -5,14 +5,14 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: "AIzaSyA-IzjPx85QucSkrP8260-iyR7D4lGamfo",
-    authDomain: "cassia-corallo.firebaseapp.com",
-    databaseURL: "https://cassia-corallo.firebaseio.com",
-    projectId: "cassia-corallo",
-    storageBucket: "cassia-corallo.appspot.com",
-    messagingSenderId: "873790164992",
-    appId: "1:873790164992:web:d21f654e5d59b1778a48e5",
-    measurementId: "G-47S3B4S5VF"
+    apiKey: "AIzaSyBn7cpRk_DiaZFe1oflnHqM83t8qnlG_E4",
+    authDomain: "delivery-it.firebaseapp.com",
+    databaseURL: "https://delivery-it.firebaseio.com",
+    projectId: "delivery-it",
+    storageBucket: "delivery-it.appspot.com",
+    messagingSenderId: "757214778796",
+    appId: "1:757214778796:web:a5fd21b0a7b5dc81925609",
+    measurementId: "G-T8R3LPPY2N"
   }
 };
 
