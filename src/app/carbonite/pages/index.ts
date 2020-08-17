@@ -9,3 +9,6 @@ export * from './user/user-orders-page/user-orders-page.component';
 export * from './full-orders/full-orders.component';
 export * from './order-detail-page/order-detail-page.component';
 export * from './store-settings-page/store-settings-page.component';
+export * from './init-page/init-page.component'
+export * from './about-page/about-page.component';
+export * from './contact-page/contact-page.component';

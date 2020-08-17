@@ -9,17 +9,13 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { HttpClientModule } from '@angular/common/http';
 
 
-import { AdminPageComponent, CheckoutPageComponent, LoginPageComponent, ProductsPageComponent, ProductDetailPageComponent, CartPageComponent, UserComponent, UserOrdersPageComponent, FullOrdersComponent, OrderDetailPageComponent, StoreSettingsPageComponent } from './pages';
+import { AdminPageComponent, CheckoutPageComponent, LoginPageComponent, ProductsPageComponent, ProductDetailPageComponent, CartPageComponent, UserComponent, UserOrdersPageComponent, FullOrdersComponent, OrderDetailPageComponent, StoreSettingsPageComponent, InitPageComponent, AboutPageComponent, ContactPageComponent } from './pages';
 import { CarboniteRoutingModule } from './carbonite-routing/carbonite-routing.module';
 import { CurrencyFormat } from './shared/pipes/currency-format.pipe';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { LoadingComponent } from './shared/loading/loading.component';
 import { DndModule } from 'ngx-drag-drop';
 import { NgxMaskModule } from 'ngx-mask'
-
-
-
-
 
 
 @NgModule({
@@ -48,6 +44,9 @@ import { NgxMaskModule } from 'ngx-mask'
     UserOrdersPageComponent,
     FullOrdersComponent,
     StoreSettingsPageComponent,
+    InitPageComponent,
+    AboutPageComponent,
+    ContactPageComponent,
 
     CurrencyFormat,
     LoadingComponent

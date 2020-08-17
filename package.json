@@ -8,7 +8,7 @@
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "deploy": "git add . && git commit -m 'update' && git push && ng build --prod && firebase deploy --project delivery-it"
+        "deploy": "git add . && git commit -m 'update' && git push && ng build --prod && firebase deploy --project rg-sul"
     },
     "private": true,
     "dependencies": {
@@ -26,11 +26,13 @@
         "coordenadas-do-cep": "^1.2.0",
         "file-base64": "^1.0.0",
         "firebase": "^7.6.0",
+        "font-awesome": "^4.7.0",
         "geolib": "^3.3.1",
         "md5": "^2.2.1",
         "mercadopago": "^1.3.1",
         "moment": "^2.24.0",
         "ngx-drag-drop": "^2.0.0",
+        "ngx-gallery": "^5.10.0",
         "ngx-geoautocomplete": "^0.1.1",
         "ngx-mask": "^8.1.6",
         "ngx-spinner": "^8.1.0",

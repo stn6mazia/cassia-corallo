@@ -1,1 +1,47 @@
-<p>header works!</p>
+<div id="header" *ngIf="!hideHeader">
+    <div class="container">
+        <div class="row pt-16 align-items-center pb-16">
+            <div class="col-3">
+                <img class="h-50-p" src="../../../../assets/Selo.png" alt="">
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col center">
+                        <span class="f-16 f-white clickable" [routerLink]="['']" routerLinkActive="router-link-active" >Início</span>
+                    </div>
+                    <div class="col center">
+                        <span class="f-16 f-white clickable" [routerLink]="['produtos']" routerLinkActive="router-link-active" >Produtos</span>
+                    </div>
+                    <div class="col center">
+                        <span class="f-16 f-white clickable" [routerLink]="['sobre-nos']" routerLinkActive="router-link-active" >Sobre nós</span>
+                    </div>
+                    <div class="col center">
+                        <span class="f-16 f-white clickable" [routerLink]="['contato']" routerLinkActive="router-link-active" >Contato</span>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>
+<div id="header" *ngIf="hideHeader">
+    <div class="container">
+        <div class="row pt-16 align-items-center pb-16">
+            <div class="col">
+                <div class="row">
+                    <div class="col center">
+                        <span class="f-16 f-white clickable" [routerLink]="['']" routerLinkActive="router-link-active" >Início</span>
+                    </div>
+                    <div class="col center">
+                        <span class="f-16 f-white clickable" [routerLink]="['produtos']" routerLinkActive="router-link-active" >Produtos</span>
+                    </div>
+                    <div class="col center">
+                        <span class="f-16 f-white clickable" [routerLink]="['sobre-nos']" routerLinkActive="router-link-active" >Sobre nós</span>
+                    </div>
+                    <div class="col center">
+                        <span class="f-16 f-white clickable" [routerLink]="['contato']" routerLinkActive="router-link-active" >Contato</span>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>

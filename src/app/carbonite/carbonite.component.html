@@ -1,1 +1,9 @@
-<router-outlet></router-outlet>
+<div id="main">
+  <header [hideHeader]="hideHeader"></header>
+  <div *ngIf="path == '/'">
+    <init-page (scrollPosition)="hideHeader = $event"></init-page>
+  </div>
+  <div *ngIf="path == '/produtos'"></div>
+  <div *ngIf="path == '/sobre-nos'"></div>
+  <div *ngIf="path == '/contato'"></div>
+</div>

@@ -1,0 +1,42 @@
+@import '../../shared/styles/mixxins';
+
+.pt-56 {
+ padding-top: 56px;
+}
+
+.red-sect {
+    background-color: red;
+    padding: 24px 16px;
+    border: 8px solid white
+}
+
+.w-50 {width: 50% !important;}
+
+.pt-88 {
+    padding-top: 88px;
+}
+.pb-88 {
+    padding-bottom: 88px !important;
+}
+
+.wood-img {
+    background-image: url(../../../../assets/wood.jpg);
+    background-size: contain;
+    border: solid white;
+    margin-left: 24px ;
+}
+
+.meat-bg {
+    background-image: url(../../../../assets/seasoning.jpg);
+    background-size: 100%;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.fire-bg {
+    background: linear-gradient(#373436, black);
+    padding-top: 56px;
+    padding-bottom: 56px;
+    background-size: 100%;
+    background-position: center;
+}

@@ -1,0 +1,74 @@
+<div id="init-page" class="page-content-scroll" (scroll)="sendScrollPosition()">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col right">
+        <span class="f-48"
+          >AS MELHORES CARNES MERECEM OS MELHORES TEMPEROS</span
+        >
+      </div>
+      <div class="col wood-img center">
+        <img
+          class="w-50"
+          src="../../../../assets/Webp.net-gifmaker.gif"
+          alt=""
+        />
+      </div>
+    </div>
+  </div>
+  <div class="container-12 mt-48">
+    <div class="row pt-88 pb-88 meat-bg justify-content-center">
+      <div class="col-md-4"></div>
+      <div class="col-md-4 f-italic col-sm-12 center red-sect">
+        <span class="f-32">
+          Ao escolher a marca RGSUL, você passa a fazer parte de uma comunidade,
+          de um símbolo, de uma tribo, de um conceito especial e global,
+          apaixonados por CHURRASCO.
+        </span>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+  </div>
+  <div class="container mt-48">
+    <div class="row">
+      <div class="col center">
+        <span class="f-48">
+          CADA CHURRASCO É ÚNICO, NÃO SE REPETE
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="container-12 fire-bg">
+    <div class="row pb-48">
+      <div class="col center">
+        <video width="400" controls>
+          <source src="../../../../assets/init-video.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+    
+    <div class="row pb-88 justify-content-center">
+      <div class="col-sm-8">
+        <button class="btn btn-default" (click)="showGalery = true">
+        Ver galeria
+      </button>
+    </div>
+  </div>
+  <div *ngIf="showGalery">
+    <div class="row justify-content-center" *ngFor="let img of images">
+      <div class="col-4 wood-img center " *ngIf="img.id == count">
+        <img [src]="img.src" alt="" class="w-50">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col center" (click)="changeCountId('-')">
+        <span class="f-32"><i class="fas fa-minus-circle"></i></span>
+      </div>
+      <div class="col center" (click)="changeCountId('+')">
+        <span class="f-32"><i class="fas fa-plus-circle"></i></span>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <img src="../../../../assets/no-bg/" alt=""> -->
+
+</div>

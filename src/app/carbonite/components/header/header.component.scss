@@ -1,0 +1,19 @@
+@import '../../shared/styles/mixxins';
+
+.f-white {
+    color: white;
+}
+
+.h-50-p {
+    width: 50%;
+}
+
+.h-24-p {
+    width: 25px;
+}
+
+.clickable:hover {
+    background: -webkit-linear-gradient(rgb(255, 217, 0), rgb(255, 0, 0));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

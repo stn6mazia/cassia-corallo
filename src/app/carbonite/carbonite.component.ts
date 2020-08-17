@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentChecked, AfterViewInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { FirebaseService } from './services/firebase.service';
@@ -16,8 +16,12 @@ export class CarboniteComponent implements OnInit {
 
   userId
 
+  hideHeader
+
   title = 'Angular8Firebase';
   description = 'Angular-Fire-Demo';
+
+  path
 
   product: Product
 
@@ -27,20 +31,14 @@ export class CarboniteComponent implements OnInit {
   constructor(
     private router: Router,
     private storeService: StoreService
-  ) { }
+  ) {
+    router.events.subscribe(event => {
+      this.path = router.url
+    })
+  }
 
   ngOnInit() {
-    if (sessionStorage.getItem('userKey')) {
-      this.userId = true
-      if(sessionStorage.getItem('admin')) {
-        this.router.navigateByUrl('full-orders')
-      } else {
-        this.router.navigateByUrl('products')
-      }
-    } else {
-      this.userId = false
-      this.router.navigateByUrl('products')
-    }
+    this.hideHeader = false
     this.getStoreInformation()
   }
 
@@ -58,6 +56,8 @@ export class CarboniteComponent implements OnInit {
     });
   }
 
-
+  getScroll(evt) {
+    console.log(evt)
+  }
 
 }
